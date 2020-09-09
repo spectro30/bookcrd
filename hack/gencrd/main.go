@@ -21,10 +21,10 @@ import (
 	"os"
 	"path/filepath"
 
-	clusterinstall "go.bytebuilders.dev/resource-model/apis/cluster/install"
-	clusterv1alpha1 "go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
-	identityinstall "go.bytebuilders.dev/resource-model/apis/identity/install"
-	identityv1alpha1 "go.bytebuilders.dev/resource-model/apis/identity/v1alpha1"
+	clusterinstall "github.com/spectro30/bookcrd/apis/cluster/install"
+	clusterv1alpha1 "github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
+	identityinstall "github.com/spectro30/bookcrd/apis/identity/install"
+	identityv1alpha1 "github.com/spectro30/bookcrd/apis/identity/v1alpha1"
 
 	gort "github.com/appscode/go/runtime"
 	"github.com/go-openapi/spec"
@@ -78,7 +78,7 @@ func generateSwaggerJson() {
 		glog.Fatal(err)
 	}
 
-	filename := gort.GOPath() + "/src/go.bytebuilders.dev/resource-model/openapi/swagger.json"
+	filename := gort.GOPath() + "/src/github.com/spectro30/bookcrd/openapi/swagger.json"
 	err = os.MkdirAll(filepath.Dir(filename), 0755)
 	if err != nil {
 		glog.Fatal(err)

@@ -23,7 +23,7 @@ package v1alpha1
 import (
 	unsafe "unsafe"
 
-	identity "go.bytebuilders.dev/resource-model/apis/identity"
+	identity "github.com/spectro30/bookcrd/apis/identity"
 
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"

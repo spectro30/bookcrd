@@ -39,19 +39,28 @@ spec:
             type: object
           spec:
             properties:
-              slackChannel:
+              deploymentName:
                 type: string
+              replicaCount:
+                format: int32
+                type: integer
             required:
-            - slackChannel
+            - deploymentName
+            - replicaCount
             type: object
           status:
             properties:
+              currentReplica:
+                format: int32
+                type: integer
               observedGeneration:
                 description: ObservedGeneration is the most recent generation observed
                   for this Cluster. It corresponds to the Cluster's generation, which
                   is updated on mutation by the API Server.
                 format: int64
                 type: integer
+            required:
+            - currentReplica
             type: object
         type: object
     served: true

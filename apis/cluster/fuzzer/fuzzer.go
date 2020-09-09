@@ -17,7 +17,7 @@ limitations under the License.
 package fuzzer
 
 import (
-	"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
+	"github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
 
 	fuzz "github.com/google/gofuzz"
 	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"

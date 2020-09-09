@@ -19,8 +19,8 @@ limitations under the License.
 package cluster
 
 import (
-	v1alpha1 "go.bytebuilders.dev/resource-model/client/informers/externalversions/cluster/v1alpha1"
-	internalinterfaces "go.bytebuilders.dev/resource-model/client/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/spectro30/bookcrd/client/informers/externalversions/cluster/v1alpha1"
+	internalinterfaces "github.com/spectro30/bookcrd/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to each of this group's versions.

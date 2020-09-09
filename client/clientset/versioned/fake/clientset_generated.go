@@ -19,12 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "go.bytebuilders.dev/resource-model/client/clientset/versioned"
-	clusterv1alpha1 "go.bytebuilders.dev/resource-model/client/clientset/versioned/typed/cluster/v1alpha1"
-	fakeclusterv1alpha1 "go.bytebuilders.dev/resource-model/client/clientset/versioned/typed/cluster/v1alpha1/fake"
-	identityv1alpha1 "go.bytebuilders.dev/resource-model/client/clientset/versioned/typed/identity/v1alpha1"
-	fakeidentityv1alpha1 "go.bytebuilders.dev/resource-model/client/clientset/versioned/typed/identity/v1alpha1/fake"
-
+	clientset "github.com/spectro30/bookcrd/client/clientset/versioned"
+	clusterv1alpha1 "github.com/spectro30/bookcrd/client/clientset/versioned/typed/cluster/v1alpha1"
+	fakeclusterv1alpha1 "github.com/spectro30/bookcrd/client/clientset/versioned/typed/cluster/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -82,9 +79,4 @@ var _ clientset.Interface = &Clientset{}
 // ClusterV1alpha1 retrieves the ClusterV1alpha1Client
 func (c *Clientset) ClusterV1alpha1() clusterv1alpha1.ClusterV1alpha1Interface {
 	return &fakeclusterv1alpha1.FakeClusterV1alpha1{Fake: &c.Fake}
-}
-
-// IdentityV1alpha1 retrieves the IdentityV1alpha1Client
-func (c *Clientset) IdentityV1alpha1() identityv1alpha1.IdentityV1alpha1Interface {
-	return &fakeidentityv1alpha1.FakeIdentityV1alpha1{Fake: &c.Fake}
 }

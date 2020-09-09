@@ -23,10 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "go.bytebuilders.dev/resource-model/client/clientset/versioned"
-	cluster "go.bytebuilders.dev/resource-model/client/informers/externalversions/cluster"
-	internalinterfaces "go.bytebuilders.dev/resource-model/client/informers/externalversions/internalinterfaces"
-
+	versioned "github.com/spectro30/bookcrd/client/clientset/versioned"
+	cluster "github.com/spectro30/bookcrd/client/informers/externalversions/cluster"
+	internalinterfaces "github.com/spectro30/bookcrd/client/informers/externalversions/internalinterfaces"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

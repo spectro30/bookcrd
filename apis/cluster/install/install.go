@@ -17,7 +17,7 @@ limitations under the License.
 package install
 
 import (
-	"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
+	"github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"

@@ -21,9 +21,7 @@ package versioned
 import (
 	"fmt"
 
-	clusterv1alpha1 "go.bytebuilders.dev/resource-model/client/clientset/versioned/typed/cluster/v1alpha1"
-	identityv1alpha1 "go.bytebuilders.dev/resource-model/client/clientset/versioned/typed/identity/v1alpha1"
-
+	clusterv1alpha1 "github.com/spectro30/bookcrd/client/clientset/versioned/typed/cluster/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -32,25 +30,18 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ClusterV1alpha1() clusterv1alpha1.ClusterV1alpha1Interface
-	IdentityV1alpha1() identityv1alpha1.IdentityV1alpha1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	clusterV1alpha1  *clusterv1alpha1.ClusterV1alpha1Client
-	identityV1alpha1 *identityv1alpha1.IdentityV1alpha1Client
+	clusterV1alpha1 *clusterv1alpha1.ClusterV1alpha1Client
 }
 
 // ClusterV1alpha1 retrieves the ClusterV1alpha1Client
 func (c *Clientset) ClusterV1alpha1() clusterv1alpha1.ClusterV1alpha1Interface {
 	return c.clusterV1alpha1
-}
-
-// IdentityV1alpha1 retrieves the IdentityV1alpha1Client
-func (c *Clientset) IdentityV1alpha1() identityv1alpha1.IdentityV1alpha1Interface {
-	return c.identityV1alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -78,10 +69,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-	cs.identityV1alpha1, err = identityv1alpha1.NewForConfig(&configShallowCopy)
-	if err != nil {
-		return nil, err
-	}
 
 	cs.DiscoveryClient, err = discovery.NewDiscoveryClientForConfig(&configShallowCopy)
 	if err != nil {
@@ -95,7 +82,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.clusterV1alpha1 = clusterv1alpha1.NewForConfigOrDie(c)
-	cs.identityV1alpha1 = identityv1alpha1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -105,7 +91,6 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.clusterV1alpha1 = clusterv1alpha1.New(c)
-	cs.identityV1alpha1 = identityv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

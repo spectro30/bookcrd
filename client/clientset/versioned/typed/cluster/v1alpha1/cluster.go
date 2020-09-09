@@ -22,9 +22,8 @@ import (
 	"context"
 	"time"
 
-	v1alpha1 "go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
-	scheme "go.bytebuilders.dev/resource-model/client/clientset/versioned/scheme"
-
+	v1alpha1 "github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
+	scheme "github.com/spectro30/bookcrd/client/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"

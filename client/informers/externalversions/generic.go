@@ -21,8 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1alpha1 "go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
-
+	v1alpha1 "github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )

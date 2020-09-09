@@ -15,9 +15,9 @@
 
 SHELL=/bin/bash -o pipefail
 
-GO_PKG   := go.bytebuilders.dev
+GO_PKG   := github.com/spectro30
 REPO     := $(notdir $(shell pwd))
-BIN      := resource-model
+BIN      := bookcrd
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1}"
@@ -202,7 +202,7 @@ gen-crd-protos-%:
 			--proto-import=$(DOCKER_REPO_ROOT)/vendor    \
 			--proto-import=$(DOCKER_REPO_ROOT)/third_party/protobuf \
 			--apimachinery-packages=-k8s.io/apimachinery/pkg/api/resource,-k8s.io/apimachinery/pkg/apis/meta/v1,-k8s.io/apimachinery/pkg/apis/meta/v1beta1,-k8s.io/apimachinery/pkg/runtime,-k8s.io/apimachinery/pkg/runtime/schema,-k8s.io/apimachinery/pkg/util/intstr \
-			--packages=-k8s.io/api/core/v1,-kmodules.xyz/client-go/api/v1,go.bytebuilders.dev/resource-model/apis/$(subst _,/,$*)
+			--packages=-k8s.io/api/core/v1,-kmodules.xyz/client-go/api/v1,github.com/spectro30/bookcrd/apis/$(subst _,/,$*)
 
 .PHONY: gen-bindata
 gen-bindata:

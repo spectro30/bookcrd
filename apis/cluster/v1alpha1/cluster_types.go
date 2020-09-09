@@ -42,10 +42,12 @@ type Cluster struct {
 }
 
 type ClusterSpec struct {
-	SlackChannel string `json:"slackChannel"`
+	DeploymentName string `json:"deploymentName"`
+	ReplicaCount *int32 `json:"replicaCount"`
 }
 
 type ClusterStatus struct {
+	CurrentReplica int32 `json:"currentReplica"`
 	// ObservedGeneration is the most recent generation observed for this Cluster. It corresponds to the
 	// Cluster's generation, which is updated on mutation by the API Server.
 	// +optional

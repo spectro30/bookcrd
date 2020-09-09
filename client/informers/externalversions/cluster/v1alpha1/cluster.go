@@ -22,11 +22,10 @@ import (
 	"context"
 	time "time"
 
-	clusterv1alpha1 "go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
-	versioned "go.bytebuilders.dev/resource-model/client/clientset/versioned"
-	internalinterfaces "go.bytebuilders.dev/resource-model/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "go.bytebuilders.dev/resource-model/client/listers/cluster/v1alpha1"
-
+	clusterv1alpha1 "github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
+	versioned "github.com/spectro30/bookcrd/client/clientset/versioned"
+	internalinterfaces "github.com/spectro30/bookcrd/client/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/spectro30/bookcrd/client/listers/cluster/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

@@ -17,7 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"go.bytebuilders.dev/resource-model/crds"
+	"github.com/spectro30/bookcrd/crds"
 
 	"kmodules.xyz/client-go/apiextensions"
 )

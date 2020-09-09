@@ -19,8 +19,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "go.bytebuilders.dev/resource-model/apis/identity/v1alpha1"
-	"go.bytebuilders.dev/resource-model/client/clientset/versioned/scheme"
+	v1alpha1 "github.com/spectro30/bookcrd/apis/identity/v1alpha1"
+	"github.com/spectro30/bookcrd/client/clientset/versioned/scheme"
 
 	rest "k8s.io/client-go/rest"
 )

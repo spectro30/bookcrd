@@ -19,9 +19,7 @@ limitations under the License.
 package scheme
 
 import (
-	clusterv1alpha1 "go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
-	identityv1alpha1 "go.bytebuilders.dev/resource-model/apis/identity/v1alpha1"
-
+	clusterv1alpha1 "github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -34,7 +32,6 @@ var Codecs = serializer.NewCodecFactory(Scheme)
 var ParameterCodec = runtime.NewParameterCodec(Scheme)
 var localSchemeBuilder = runtime.SchemeBuilder{
 	clusterv1alpha1.AddToScheme,
-	identityv1alpha1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition

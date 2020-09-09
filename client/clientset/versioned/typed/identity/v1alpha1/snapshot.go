@@ -22,8 +22,8 @@ import (
 	"context"
 	"time"
 
-	v1alpha1 "go.bytebuilders.dev/resource-model/apis/identity/v1alpha1"
-	scheme "go.bytebuilders.dev/resource-model/client/clientset/versioned/scheme"
+	v1alpha1 "github.com/spectro30/bookcrd/apis/identity/v1alpha1"
+	scheme "github.com/spectro30/bookcrd/client/clientset/versioned/scheme"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	rest "k8s.io/client-go/rest"

@@ -35,9 +35,9 @@ import (
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
 		"github.com/appscode/go/encoding/json/types.IntHash":                       schema_go_encoding_json_types_IntHash(ref),
-		"go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.Snapshot":       schema_resource_model_apis_identity_v1alpha1_Snapshot(ref),
-		"go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.SnapshotList":   schema_resource_model_apis_identity_v1alpha1_SnapshotList(ref),
-		"go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.SnapshotStatus": schema_resource_model_apis_identity_v1alpha1_SnapshotStatus(ref),
+		"github.com/spectro30/bookcrd/apis/identity/v1alpha1.Snapshot":       schema_resource_model_apis_identity_v1alpha1_Snapshot(ref),
+		"github.com/spectro30/bookcrd/apis/identity/v1alpha1.SnapshotList":   schema_resource_model_apis_identity_v1alpha1_SnapshotList(ref),
+		"github.com/spectro30/bookcrd/apis/identity/v1alpha1.SnapshotStatus": schema_resource_model_apis_identity_v1alpha1_SnapshotStatus(ref),
 		"k8s.io/api/apps/v1.ControllerRevision":                                    schema_k8sio_api_apps_v1_ControllerRevision(ref),
 		"k8s.io/api/apps/v1.ControllerRevisionList":                                schema_k8sio_api_apps_v1_ControllerRevisionList(ref),
 		"k8s.io/api/apps/v1.DaemonSet":                                             schema_k8sio_api_apps_v1_DaemonSet(ref),
@@ -378,14 +378,14 @@ func schema_resource_model_apis_identity_v1alpha1_Snapshot(ref common.ReferenceC
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.SnapshotStatus"),
+							Ref: ref("github.com/spectro30/bookcrd/apis/identity/v1alpha1.SnapshotStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.SnapshotStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/spectro30/bookcrd/apis/identity/v1alpha1.SnapshotStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -420,7 +420,7 @@ func schema_resource_model_apis_identity_v1alpha1_SnapshotList(ref common.Refere
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.Snapshot"),
+										Ref: ref("github.com/spectro30/bookcrd/apis/identity/v1alpha1.Snapshot"),
 									},
 								},
 							},
@@ -431,7 +431,7 @@ func schema_resource_model_apis_identity_v1alpha1_SnapshotList(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"go.bytebuilders.dev/resource-model/apis/identity/v1alpha1.Snapshot", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"github.com/spectro30/bookcrd/apis/identity/v1alpha1.Snapshot", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 

@@ -35,10 +35,10 @@ import (
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
 		"github.com/appscode/go/encoding/json/types.IntHash":                     schema_go_encoding_json_types_IntHash(ref),
-		"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.Cluster":       schema_resource_model_apis_cluster_v1alpha1_Cluster(ref),
-		"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterList":   schema_resource_model_apis_cluster_v1alpha1_ClusterList(ref),
-		"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterSpec":   schema_resource_model_apis_cluster_v1alpha1_ClusterSpec(ref),
-		"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterStatus": schema_resource_model_apis_cluster_v1alpha1_ClusterStatus(ref),
+		"github.com/spectro30/bookcrd/apis/cluster/v1alpha1.Cluster":       schema_resource_model_apis_cluster_v1alpha1_Cluster(ref),
+		"github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterList":   schema_resource_model_apis_cluster_v1alpha1_ClusterList(ref),
+		"github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterSpec":   schema_resource_model_apis_cluster_v1alpha1_ClusterSpec(ref),
+		"github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterStatus": schema_resource_model_apis_cluster_v1alpha1_ClusterStatus(ref),
 		"k8s.io/api/apps/v1.ControllerRevision":                                  schema_k8sio_api_apps_v1_ControllerRevision(ref),
 		"k8s.io/api/apps/v1.ControllerRevisionList":                              schema_k8sio_api_apps_v1_ControllerRevisionList(ref),
 		"k8s.io/api/apps/v1.DaemonSet":                                           schema_k8sio_api_apps_v1_DaemonSet(ref),
@@ -379,19 +379,19 @@ func schema_resource_model_apis_cluster_v1alpha1_Cluster(ref common.ReferenceCal
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterSpec"),
+							Ref: ref("github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterStatus"),
+							Ref: ref("github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterSpec", "go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.ClusterStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterSpec", "github.com/spectro30/bookcrd/apis/cluster/v1alpha1.ClusterStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -426,7 +426,7 @@ func schema_resource_model_apis_cluster_v1alpha1_ClusterList(ref common.Referenc
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.Cluster"),
+										Ref: ref("github.com/spectro30/bookcrd/apis/cluster/v1alpha1.Cluster"),
 									},
 								},
 							},
@@ -436,7 +436,7 @@ func schema_resource_model_apis_cluster_v1alpha1_ClusterList(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1.Cluster", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"github.com/spectro30/bookcrd/apis/cluster/v1alpha1.Cluster", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 

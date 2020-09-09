@@ -17,8 +17,8 @@ limitations under the License.
 package install
 
 import (
-	"go.bytebuilders.dev/resource-model/apis/identity"
-	"go.bytebuilders.dev/resource-model/apis/identity/v1alpha1"
+	"github.com/spectro30/bookcrd/apis/identity"
+	"github.com/spectro30/bookcrd/apis/identity/v1alpha1"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"

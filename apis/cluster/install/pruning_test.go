@@ -19,8 +19,8 @@ package install
 import (
 	"testing"
 
-	"go.bytebuilders.dev/resource-model/apis/cluster/fuzzer"
-	"go.bytebuilders.dev/resource-model/apis/cluster/v1alpha1"
+	"github.com/spectro30/bookcrd/apis/cluster/fuzzer"
+	"github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
 
 	clientsetscheme "k8s.io/client-go/kubernetes/scheme"
 	crdfuzz "kmodules.xyz/crd-schema-fuzz"

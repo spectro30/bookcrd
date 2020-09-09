@@ -17,7 +17,7 @@
 set -eou pipefail
 
 GOPATH=$(go env GOPATH)
-REPO_ROOT="$GOPATH/src/go.bytebuilders.dev/resource-model"
+REPO_ROOT="$GOPATH/src/github.com/spectro30/bookcrd"
 
 pushd $REPO_ROOT
 
