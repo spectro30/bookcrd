@@ -20,50 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b58b365b-280c-4738-8840-53a9e70bf896" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/fuzzer/fuzzer.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/fuzzer/fuzzer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/install/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/install/install.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/install/pruning_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/install/pruning_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/cluster_helpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/cluster_helpers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/cluster_types.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/cluster_types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/doc.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/doc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/generated.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/generated.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/openapi_generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/openapi_generated.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/register.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/cluster/v1alpha1/zz_generated.deepcopy.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/cluster/v1alpha1/zz_generated.deepcopy.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/identity/install/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/identity/install/install.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/identity/v1alpha1/doc.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/identity/v1alpha1/doc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/identity/v1alpha1/generated.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/identity/v1alpha1/generated.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/identity/v1alpha1/openapi_generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/identity/v1alpha1/openapi_generated.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/identity/v1alpha1/zz_generated.conversion.go" beforeDir="false" afterPath="$PROJECT_DIR$/apis/identity/v1alpha1/zz_generated.conversion.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/clientset.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/clientset.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/fake/clientset_generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/fake/clientset_generated.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/fake/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/fake/register.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/scheme/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/scheme/register.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/cluster.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/cluster_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/cluster_client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/fake/fake_cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/fake/fake_cluster.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/fake/fake_cluster_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/cluster/v1alpha1/fake/fake_cluster_client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/fake/fake_identity_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/fake/fake_identity_client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/fake/fake_snapshot.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/fake/fake_snapshot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/identity_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/identity_client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/snapshot.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientset/versioned/typed/identity/v1alpha1/snapshot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/informers/externalversions/cluster/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/informers/externalversions/cluster/interface.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/informers/externalversions/cluster/v1alpha1/cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/informers/externalversions/cluster/v1alpha1/cluster.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/informers/externalversions/cluster/v1alpha1/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/informers/externalversions/cluster/v1alpha1/interface.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/informers/externalversions/factory.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/informers/externalversions/factory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/informers/externalversions/generic.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/informers/externalversions/generic.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/informers/externalversions/internalinterfaces/factory_interfaces.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/informers/externalversions/internalinterfaces/factory_interfaces.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/listers/cluster/v1alpha1/cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/listers/cluster/v1alpha1/cluster.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/listers/identity/v1alpha1/snapshot.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/listers/identity/v1alpha1/snapshot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/api-rules/violation_exceptions.list" beforeDir="false" afterPath="$PROJECT_DIR$/config/api-rules/violation_exceptions.list" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crds/bindata.go" beforeDir="false" afterPath="$PROJECT_DIR$/crds/bindata.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crds/cluster.bytebuilders.dev_clusters.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/crds/cluster.bytebuilders.dev_clusters.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/coverage.sh" beforeDir="false" afterPath="$PROJECT_DIR$/hack/coverage.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hack/gencrd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/hack/gencrd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,10 +100,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2663" y="311" width="424" height="491" key="FileChooserDialogImpl/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1599626315160" />
-    <state x="2999" y="393" width="618" height="580" key="find.popup" timestamp="1599627564252">
+    <state x="2703" y="266" width="618" height="580" key="find.popup" timestamp="1599631023616">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2999" y="393" width="618" height="580" key="find.popup/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1599627564252" />
+    <state x="2703" y="266" width="618" height="580" key="find.popup/1920.0.1920.1080/72.27.1848.1053@1920.0.1920.1080" timestamp="1599631023616" />
     <state x="2754" y="409" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1599623241831">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>

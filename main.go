@@ -45,7 +45,7 @@ func main() {
 	kubeInformerFactory.Start(stopCh)
 	clusterInformerFactory.Start(stopCh)
 
-	klog.Info("sdkfjllkxcjvkl")
+	klog.Info()
 	controller := newController(k8sClientset, clusterClientSet,
 		kubeInformerFactory.Apps().V1().Deployments(),
 		kubeInformerFactory.Core().V1().Pods(),

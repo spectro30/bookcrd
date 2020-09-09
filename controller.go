@@ -74,7 +74,7 @@ func newController(kubeClientSet kubernetes.Interface,
 	eventBroadcaster.StartLogging(klog.Infof)
 	eventBroadcaster.StartRecordingToSink(&typedcorev1.EventSinkImpl{Interface: kubeClientSet.CoreV1().Events("")})
 	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, corev1.EventSource{Component: controllerAgentName})
-	fmt.Println("hjbggghgh")
+	fmt.Println("Hello There")
 	controller := &controller{
 		kubeClientSet:    kubeClientSet,
 		clusterClientSet: clusterClientSet,
@@ -210,61 +210,42 @@ func (c *controller) syncHandler(key string) error {
 
 	}
 
-	if cluster.DeletionTimestamp != nil {
-		bookDeployment, err := c.deploymentsListener.Deployments(namespace).Get(name)
-		if err != nil {
-			return err
-		}
-
-		if crd_util.HasFinalizer(cluster.ObjectMeta, finalizerName) {
-			err = crd_util.RemoveDeployment(c.kubeClientSet, cluster.Namespace, cluster.Name)
-			cluster.ObjectMeta = crd_util.RemoveFinalizer(cluster.ObjectMeta, finalizerName)
-			c.updateClusterStatus(cluster, bookDeployment)
-		}
-
-	} else {
-		if !crd_util.HasFinalizer(cluster.ObjectMeta, finalizerName) {
-			cluster.ObjectMeta = crd_util.AddFinalizer(cluster.ObjectMeta, finalizerName)
-
-		}
-		bookDeploymentName := cluster.Spec.DeploymentName
-		if bookDeploymentName == "" {
-			// We choose to absorb the error here as the worker would requeue the
-			// resource otherwise. Instead, the next time the resource is updated
-			// the resource will be queued again.
-			utilruntime.HandleError(fmt.Errorf("%s: deployment name must be specified", key))
-			return nil
-		}
-		bookDeployment, err := c.kubeClientSet.AppsV1().Deployments(namespace).Get(context.TODO(), bookDeploymentName, metav1.GetOptions{})
-		if errors.IsNotFound(err) {
-			bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(cluster.Namespace).Create(context.TODO(), newDeployment(cluster), metav1.CreateOptions{})
-		}
-		if err != nil {
-			return err
-		}
-		if !metav1.IsControlledBy(bookDeployment, cluster) {
-			msg := fmt.Sprintf("already Resource Exists", bookDeployment.Name)
-			c.recorder.Event(cluster, corev1.EventTypeWarning, "ErrResourceExists", msg)
-			return fmt.Errorf(err.Error())
-		}
-		if *bookDeployment.Spec.Replicas != *cluster.Spec.ReplicaCount && cluster.Spec.ReplicaCount != nil {
-			klog.V(4).Infof("cluster %s replicas: %d, deployment replicas: %d", name, *cluster.Spec.ReplicaCount, *bookDeployment.Spec.Replicas)
-			bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(namespace).Update(context.TODO(), newDeployment(cluster), metav1.UpdateOptions{})
-		}
-		if err != nil {
-			return err
-		}
-
-		// Finally, we update the status block of the Foo resource to reflect the
-		// current state of the world
-		err = c.updateClusterStatus(cluster, bookDeployment)
-		if err != nil {
-			return err
-		}
-
-		c.recorder.Event(cluster, corev1.EventTypeNormal, "SuccessSynced", "Message Resource Synced")
+	bookDeploymentName := cluster.Spec.DeploymentName
+	if bookDeploymentName == "" {
+		// We choose to absorb the error here as the worker would requeue the
+		// resource otherwise. Instead, the next time the resource is updated
+		// the resource will be queued again.
+		utilruntime.HandleError(fmt.Errorf("%s: deployment name must be specified", key))
 		return nil
 	}
+	bookDeployment, err := c.kubeClientSet.AppsV1().Deployments(namespace).Get(context.TODO(), bookDeploymentName, metav1.GetOptions{})
+	if errors.IsNotFound(err) {
+		bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(cluster.Namespace).Create(context.TODO(), newDeployment(cluster), metav1.CreateOptions{})
+	}
+	if err != nil {
+		return err
+	}
+	if !metav1.IsControlledBy(bookDeployment, cluster) {
+		msg := fmt.Sprintf("already Resource Exists", bookDeployment.Name)
+		c.recorder.Event(cluster, corev1.EventTypeWarning, "ErrResourceExists", msg)
+		return fmt.Errorf(err.Error())
+	}
+	if *bookDeployment.Spec.Replicas != *cluster.Spec.ReplicaCount && cluster.Spec.ReplicaCount != nil {
+		klog.V(4).Infof("cluster %s replicas: %d, deployment replicas: %d", name, *cluster.Spec.ReplicaCount, *bookDeployment.Spec.Replicas)
+		bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(namespace).Update(context.TODO(), newDeployment(cluster), metav1.UpdateOptions{})
+	}
+	if err != nil {
+		return err
+	}
+
+	// Finally, we update the status block of the Foo resource to reflect the
+	// current state of the world
+	err = c.updateClusterStatus(cluster, bookDeployment)
+	if err != nil {
+		return err
+	}
+
+	c.recorder.Event(cluster, corev1.EventTypeNormal, "SuccessSynced", "Message Resource Synced")
 	return nil
 
 }
@@ -273,7 +254,6 @@ func (c *controller) updateClusterStatus(cluster *clusterv1alpha1.Cluster,
 	bookdeployment *appsv1.Deployment) error {
 	clusterCopy := cluster.DeepCopy()
 	if cluster.DeletionTimestamp == nil {
-
 		clusterCopy.Status.CurrentReplica = bookdeployment.Status.AvailableReplicas
 	}
 	clusterCopy.Status.ObservedGeneration = cluster.ObjectMeta.GetGeneration()
@@ -364,7 +344,7 @@ func newDeployment(cluster *clusterv1alpha1.Cluster) *appsv1.Deployment {
 					Containers: []corev1.Container{
 						{
 							Name:  "book-server",
-							Image: "nginx:latest",
+							Image: "spectro30/bookapp:latest",
 						},
 					},
 				},
