@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	appsv1 "k8s.io/api/apps/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
 
 	"time"
 
@@ -222,6 +223,12 @@ func (c *controller) syncHandler(key string) error {
 	if errors.IsNotFound(err) {
 		bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(cluster.Namespace).Create(context.TODO(), newDeployment(cluster), metav1.CreateOptions{})
 	}
+	if errors.IsNotFound(err){
+		_, err = c.kubeClientSet.CoreV1().Services(cluster.Namespace).Create(context.TODO(), newService(cluster), metav1.CreateOptions{})
+	}
+
+
+
 	if err != nil {
 		return err
 	}
@@ -346,6 +353,28 @@ func newDeployment(cluster *clusterv1alpha1.Cluster) *appsv1.Deployment {
 							Name:  "book-server",
 							Image: "spectro30/bookapp:latest",
 						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func newService (cluster *clusterv1alpha1.Cluster) *corev1.Service{
+	return &corev1.Service{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "bookcrd",
+		},
+		Spec: corev1.ServiceSpec{
+			Selector: map[string]string{
+				"app": "bookapp",
+			},
+			Type: corev1.ServiceTypeNodePort,
+			Ports: []corev1.ServicePort{
+				{
+					Port: 80,
+					TargetPort: intstr.IntOrString{
+						IntVal: 8888,
 					},
 				},
 			},
