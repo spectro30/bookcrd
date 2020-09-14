@@ -2,10 +2,14 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"github.com/golang/glog"
 	appsv1 "k8s.io/api/apps/v1"
-	"k8s.io/apimachinery/pkg/util/intstr"
-
+	apps "k8s.io/api/apps/v1"
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/strategicpatch"
+	kutil "kmodules.xyz/client-go"
 	"time"
 
 	clusterv1alpha1 "github.com/spectro30/bookcrd/apis/cluster/v1alpha1"
@@ -30,10 +34,10 @@ import (
 	"k8s.io/client-go/tools/record"
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog"
+	kerr "k8s.io/apimachinery/pkg/api/errors"
 )
 
 const controllerAgentName = "cluster-controller"
-const finalizerName = "finalizer.emon.dev"
 
 type controller struct {
 	//k8s clientset
@@ -191,6 +195,55 @@ func (c *controller) processNextWorkItem() bool {
 	return true
 }
 
+
+func CreateOrPatchDeployment(ctx context.Context, c kubernetes.Interface, meta metav1.ObjectMeta, transform func(*apps.Deployment) *apps.Deployment, opts metav1.PatchOptions) (*apps.Deployment, kutil.VerbType, error) {
+	cur, err := c.AppsV1().Deployments(meta.Namespace).Get(ctx, meta.Name, metav1.GetOptions{})
+	if kerr.IsNotFound(err) {
+		glog.V(3).Infof("Creating Deployment %s/%s.", meta.Namespace, meta.Name)
+		out, err := c.AppsV1().Deployments(meta.Namespace).Create(ctx, transform(&apps.Deployment{
+			TypeMeta: metav1.TypeMeta{
+				Kind:       "Deployment",
+				APIVersion: apps.SchemeGroupVersion.String(),
+			},
+			ObjectMeta: meta,
+		}), metav1.CreateOptions{
+			DryRun:       opts.DryRun,
+			FieldManager: opts.FieldManager,
+		})
+		return out, kutil.VerbCreated, err
+	} else if err != nil {
+		return nil, kutil.VerbUnchanged, err
+	}
+	return PatchDeployment(ctx, c, cur, transform, opts)
+}
+
+func PatchDeployment(ctx context.Context, c kubernetes.Interface, cur *apps.Deployment, transform func(*apps.Deployment) *apps.Deployment, opts metav1.PatchOptions) (*apps.Deployment, kutil.VerbType, error) {
+	return PatchDeploymentObject(ctx, c, cur, transform(cur.DeepCopy()), opts)
+}
+
+func PatchDeploymentObject(ctx context.Context, c kubernetes.Interface, cur, mod *apps.Deployment, opts metav1.PatchOptions) (*apps.Deployment, kutil.VerbType, error) {
+	curJson, err := json.Marshal(cur)
+	if err != nil {
+		return nil, kutil.VerbUnchanged, err
+	}
+
+	modJson, err := json.Marshal(mod)
+	if err != nil {
+		return nil, kutil.VerbUnchanged, err
+	}
+
+	patch, err := strategicpatch.CreateTwoWayMergePatch(curJson, modJson, apps.Deployment{})
+	if err != nil {
+		return nil, kutil.VerbUnchanged, err
+	}
+	if len(patch) == 0 || string(patch) == "{}" {
+		return cur, kutil.VerbUnchanged, nil
+	}
+	glog.V(3).Infof("Patching Deployment %s/%s with %s.", cur.Namespace, cur.Name, string(patch))
+	out, err := c.AppsV1().Deployments(cur.Namespace).Patch(ctx, cur.Name, types.StrategicMergePatchType, patch, opts)
+	return out, kutil.VerbPatched, err
+}
+
 func (c *controller) syncHandler(key string) error {
 
 	namespace, name, err := cache.SplitMetaNamespaceKey(key)
@@ -210,6 +263,8 @@ func (c *controller) syncHandler(key string) error {
 		return err
 
 	}
+	deploy := newDeployment(cluster)
+	c.kubeClientSet.AppsV1().Deployments("").Create(context.TODO(), deploy, metav1.CreateOptions{})
 
 	bookDeploymentName := cluster.Spec.DeploymentName
 	if bookDeploymentName == "" {
@@ -219,28 +274,14 @@ func (c *controller) syncHandler(key string) error {
 		utilruntime.HandleError(fmt.Errorf("%s: deployment name must be specified", key))
 		return nil
 	}
-	bookDeployment, err := c.kubeClientSet.AppsV1().Deployments(namespace).Get(context.TODO(), bookDeploymentName, metav1.GetOptions{})
-	if errors.IsNotFound(err) {
-		bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(cluster.Namespace).Create(context.TODO(), newDeployment(cluster), metav1.CreateOptions{})
-	}
-	if errors.IsNotFound(err){
-		_, err = c.kubeClientSet.CoreV1().Services(cluster.Namespace).Create(context.TODO(), newService(cluster), metav1.CreateOptions{})
-	}
 
+	bookDeployment,_, err := CreateOrPatchDeployment(context.TODO(), c.kubeClientSet, deploy.ObjectMeta, func(deployment *apps.Deployment) *apps.Deployment {
+		if cluster.Spec.ReplicaCount != nil {
+			deployment.Spec.Replicas = cluster.Spec.ReplicaCount
+		}
+		return deployment
+	}, metav1.PatchOptions{})
 
-
-	if err != nil {
-		return err
-	}
-	if !metav1.IsControlledBy(bookDeployment, cluster) {
-		msg := fmt.Sprintf("already Resource Exists", bookDeployment.Name)
-		c.recorder.Event(cluster, corev1.EventTypeWarning, "ErrResourceExists", msg)
-		return fmt.Errorf(err.Error())
-	}
-	if *bookDeployment.Spec.Replicas != *cluster.Spec.ReplicaCount && cluster.Spec.ReplicaCount != nil {
-		klog.V(4).Infof("cluster %s replicas: %d, deployment replicas: %d", name, *cluster.Spec.ReplicaCount, *bookDeployment.Spec.Replicas)
-		bookDeployment, err = c.kubeClientSet.AppsV1().Deployments(namespace).Update(context.TODO(), newDeployment(cluster), metav1.UpdateOptions{})
-	}
 	if err != nil {
 		return err
 	}
@@ -353,28 +394,6 @@ func newDeployment(cluster *clusterv1alpha1.Cluster) *appsv1.Deployment {
 							Name:  "book-server",
 							Image: "spectro30/bookapp:latest",
 						},
-					},
-				},
-			},
-		},
-	}
-}
-
-func newService (cluster *clusterv1alpha1.Cluster) *corev1.Service{
-	return &corev1.Service{
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "bookcrd",
-		},
-		Spec: corev1.ServiceSpec{
-			Selector: map[string]string{
-				"app": "bookapp",
-			},
-			Type: corev1.ServiceTypeNodePort,
-			Ports: []corev1.ServicePort{
-				{
-					Port: 80,
-					TargetPort: intstr.IntOrString{
-						IntVal: 8888,
 					},
 				},
 			},
