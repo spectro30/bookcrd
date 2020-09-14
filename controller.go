@@ -96,18 +96,6 @@ func newController(kubeClientSet kubernetes.Interface,
 		recorder:      recorder,
 	}
 
-	deploymentInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: controller.handleObject,
-		UpdateFunc: func(oldObj, newObj interface{}) {
-			controller.handleObject(newObj)
-		},
-		DeleteFunc: controller.handleObject,
-	})
-	//podInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-	//	AddFunc: ,
-	//	UpdateFunc: ,
-	//	DeleteFunc: ,
-	//})
 	clusterInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: func(obj interface{}) {
 			if o, ok := obj.(*clusterv1alpha1.Cluster); ok && o.GetGeneration() > o.Status.ObservedGeneration {
