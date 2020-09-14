@@ -251,9 +251,6 @@ func (c *controller) syncHandler(key string) error {
 		return err
 
 	}
-	deploy := newDeployment(cluster)
-	c.kubeClientSet.AppsV1().Deployments("").Create(context.TODO(), deploy, metav1.CreateOptions{})
-
 	bookDeploymentName := cluster.Spec.DeploymentName
 	if bookDeploymentName == "" {
 		// We choose to absorb the error here as the worker would requeue the
@@ -263,6 +260,7 @@ func (c *controller) syncHandler(key string) error {
 		return nil
 	}
 
+	deploy := newDeployment(cluster)
 	bookDeployment,_, err := CreateOrPatchDeployment(context.TODO(), c.kubeClientSet, deploy.ObjectMeta, func(deployment *apps.Deployment) *apps.Deployment {
 		if cluster.Spec.ReplicaCount != nil {
 			deployment.Spec.Replicas = cluster.Spec.ReplicaCount
@@ -341,6 +339,8 @@ func (c *controller) handleObject(obj interface{}) {
 		return
 	}
 }
+
+
 func (c *controller) enqueue(obj interface{}) {
 	key, err := cache.MetaNamespaceKeyFunc(obj)
 	if err != nil {
